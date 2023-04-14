@@ -6,8 +6,8 @@ from typing import List
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Server class to paginate a database of popular baby names."""
+
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
@@ -15,8 +15,7 @@ class Server:
         self.__dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset.
-        """
+        """Cache dataset."""
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
@@ -26,17 +25,21 @@ class Server:
         return self.__dataset
 
     def index_range(self, page: int, page_size: int) -> tuple:
-        """Return a tuple of size two containing a start index and an end index."""
+        """Return a tuple of size two with a start index and an end index."""
         start = ((page - 1) * page_size)
         end = page * page_size
         return (start, end)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Return the appropriate page of the dataset (i.e. the correct list of rows)
+        """Return the appropriate page of the dataset.
+
+        (i.e. the correct list of rows)
         based on the page and page_size parameters.
         """
-        assert isinstance(page, int) and page > 0, "page must be a positive integer"
-        assert isinstance(page_size, int) and page_size > 0, "page_size must be a positive integer"
+        assert isinstance(page, int) and page > 0, "page must be a positive \
+            integer"
+        assert isinstance(page_size, int) and page_size > 0, "page_size must \
+            be a positive"
 
         dataset = self.dataset()
         start_index, end_index = self.index_range(page, page_size)
